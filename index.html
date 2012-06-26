@@ -10,6 +10,33 @@
     <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="https://raw.github.com/TylerBenziger/ajaxAppend/master/ajax.append.js"></script>
     <script src="javascripts/scale.fix.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            _.templateSettings = {
+        	 	evaluate: /\{\%(.+?)\%\}/g,
+        		interpolate: /\{\{(.+?)\}\}/g
+        	};
+
+            $( '#rf1' ).ajaxAppend({
+                dataName: 'stories',
+                templates: [{
+                    template: $( "#story-template" ).text(),
+                    selector: '#whats-new-feed',
+                    order: 'prepend',
+                    callback: function() {
+                        var val = parseInt( $( "#rf1 [name=num]" ).val() );
+                        if ( val + 1 < 3 ) {
+                            $( "#rf1 [name=num]" ).val( val + 1 );
+                        } else {
+                            $( "#rf1 [type=submit]" )[0].disabled = true;
+                        }
+                    },
+                }],
+                formReset: false
+            });
+        });
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -34,49 +61,49 @@
       <section>
         <h1>AjaxAppend</h1>
 
-<p>This is a jQuery Plugin designed to work with Rail's UJS remote forms.
-It makes it easier to automatically inject populated templates into your page based on a JSON AJAX response.</p>
+        <p>This is a jQuery Plugin designed to work with Rail's UJS remote forms.
+        It makes it easier to automatically inject populated templates into your page based on a JSON AJAX response.</p>
 
-<h3>Example</h3>
+        <h3>Example</h3>
 
-<p>This is an example of a form that is meant to grab a block of "posts" and inject them into a feed div</p>
+        <p>This is an example of a form that is meant to grab a block of "posts" and inject them into a feed div</p>
 
-<script type="text/javascript">
-    $( '#rf1' ).ajaxAppend({
-        dataName: 'stories',
-        templates: [{
-            template: $( "#story-template" ).text(),
-            selector: '#whats-new-feed',
-            order: 'prepend'
-        }],
-        formReset: false
-    });
-</script>
+        <script type="text/javascript">
+            $( '#rf1' ).ajaxAppend({
+                dataName: 'stories',
+                templates: [{
+                    template: $( "#story-template" ).text(),
+                    selector: '#whats-new-feed',
+                    order: 'prepend'
+                }],
+                formReset: false
+            });
+        </script>
 
-<!-- Template for our news story -->
-<script type="underscore-template" id="story-template">
-    {% _.each(stories, function( post ) { %}
-        <div class="post">
-            <h4>{{post.headline}}<span class="date">{{post.date}}</span></h4>
-            <p>
-                {{post.story}}
-            </p>
+        <!-- Template for our news story -->
+        <script type="underscore-template" id="story-template">
+            {% _.each(stories, function( post ) { %}
+                <div class="post">
+                    <h4>{{post.headline}}<span class="date">{{post.date}}</span></h4>
+                    <p>
+                        {{post.story}}
+                    </p>
+                </div>
+            {% }); %}
+        </script>
+
+        <div id="whats-new">
+            <h3>News Example</h3>
+            <form id="rf1" data-remote="true" action="get.php" method="post" style="">
+                <input type="hidden" name="num" value="0" />
+
+                <input type="submit" value="Get More News" />
+            </form>
+            <!-- This is where the templates will be injected -->
+            <div id="whats-new-feed">
+            </div>
+            <br class="clear" />
         </div>
-    {% }); %}
-</script>
-
-<div id="whats-new">
-    <h3>News Example</h3>
-    <form id="rf1" data-remote="true" action="get.php" method="post" style="">
-        <input type="hidden" name="num" value="0" />
-
-        <input type="submit" value="Get More News" />
-    </form>
-    <!-- This is where the templates will be injected -->
-    <div id="whats-new-feed">
-    </div>
-    <br class="clear" />
-</div>
 
 <h3>Source</h3>
 
