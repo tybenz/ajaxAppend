@@ -59,5 +59,5 @@
         ),
     );
     
-    echo json_encode( array_reverse( $stories[ $_POST[ 'num' ] ] ) );
+    echo json_encode( array_reverse( $stories[ $_POST[ 'num' ] % 3 ] ) );
 ?>

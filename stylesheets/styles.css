@@ -152,7 +152,7 @@ img {
 
 /* Code blocks */
 
-code, pre {
+code, pre, .post {
 	font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   color:#000;
   font-size:14px;
