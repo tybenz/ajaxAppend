@@ -42,6 +42,9 @@
 					case 'prepend':
 						$( selector ).prepend( $newEle );
 						break;
+					case 'replace':
+						$( selector ).replaceWith( $newEle );
+						break;
 					case 'append':
 					default:
 						$( selector ).append( $newEle );
