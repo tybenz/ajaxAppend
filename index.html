@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Ajaxappend by TylerBenziger</title>
+    <title>AjaxAppend by TylerBenziger</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -42,7 +42,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1 class="header">Ajaxappend</h1>
+        <h1 class="header">AjaxAppend</h1>
         <p class="header">a jQuery Plugin to help automatic template creation on ajax callbacks</p>
 
         <ul>
@@ -56,9 +56,9 @@
 
       </header>
       <section>
-        <h1>AjaxAppend</h1>
+        <h1>Welcome</h1>
 
-        <p>This is a jQuery Plugin designed to work with Rail's UJS remote forms.
+        <p>AjaxAppend is a jQuery Plugin designed to work with Rail's UJS remote forms.
         It makes it easier to automatically inject populated templates into your page based on a JSON AJAX response.</p>
 
         <h3>Example</h3>
@@ -90,7 +90,7 @@
         </script>
 
         <div id="whats-new">
-            <form id="rf1" data-remote="true" action="get.php" method="post" style="">
+            <form id="rf1" data-remote="true" action="get.html" method="post" style="">
                 <input type="hidden" name="num" value="0" />
 
                 <input type="submit" value="Get More News" />
@@ -159,21 +159,24 @@
 		
   </body>
   <script type="text/javascript">
-      // Faking Rail's ajax:success method, ensuring responseText is put in the right place
-      $(function() {
-          $( "[data-remote=true]" ).submit( function( evt ) {
-              evt.preventDefault();
-              var $this = $( this );
+          // Faking Rail's ajax:success method, ensuring responseText is put in the right place
+    $(function() {
+        $( "[data-remote=true]" ).submit( function( evt ) {
+            evt.preventDefault();
+            var $this = $( this ),
+                data = $this.serialize(),
+                num = $this.find( '[name=num]' ).val();
 
-              $.ajax({
-                  type: $this.attr( 'method' ),
-                  url: $this.attr( 'action' ),
-                  data: $this.serialize(),
-                  success: function( xhr ) {
-                      $this.trigger( 'ajax:success', [ null, null, { responseText: xhr } ] );
-                  }
-              })
-          });
-      });
+            $.ajax({
+                type: $this.attr( 'method' ),
+                url: $this.attr( 'action' ),
+                data: data,
+                dataType: 'text',
+                success: function( response ) {
+                    $this.trigger( 'ajax:success', [ null, null, { responseText: JSON.stringify( JSON.parse( response )[ num % 3] ) } ] );
+                }
+            });
+        });
+    });
   </script>
 </html>
