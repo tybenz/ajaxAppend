@@ -1,4 +1,5 @@
-.highlight  { background: #ffffff; }
+.highlight pre { margin: 0}
+.highlight  { overflow-x: auto; box-shadow: 0 0 3px 2px rgba(0,0,0,.4); font-size: 14px; padding: 5px; background: #ffffff; }
 .highlight .c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .highlight .k { font-weight: bold } /* Keyword */
@@ -67,3 +68,4 @@
 .type-csharp .highlight .nn { color: #000000 }
 .type-csharp .highlight .s { color: #A31515 }
 .type-csharp .highlight .sc { color: #A31515 }
+
