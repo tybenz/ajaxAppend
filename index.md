@@ -1,15 +1,16 @@
 ---
 layout: default
+nav: projects
+title: Ajax Append
 ---
-
-## About
 
 This is a jQuery Plugin designed to work with Rail's UJS remote forms.
 It makes it easier to automatically inject populated templates into your page based on a JSON AJAX response.
 
 ## Example
 
-This is an example of a form that is meant to grab a block of "posts" and inject them into a feed div
+This is an example of a form that is meant to grab a block of "posts"
+and inject them into a feed.
 
 {% highlight html %}
 <!-- Initializing the ajaxAppend plugin -->
